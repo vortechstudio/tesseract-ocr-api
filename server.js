@@ -7,6 +7,16 @@ const fs = require('fs');
 const app = express();
 const upload = multer({ dest: 'uploads/' });
 
+app.listen(3001);
+
+app.get('/status', (req, res) => {
+    res.status(200).json({ 
+        status: 'OK',
+        message: 'Le serveur fonctionne correctement',
+        timestamp: Date.now()
+    });
+});
+
 app.post('/ocr', upload.single('image'), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'Aucune image fournie.' });
 
